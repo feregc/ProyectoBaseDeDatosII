@@ -119,12 +119,12 @@ def search(dictionary, searchString):
 def insert_FactSales(db,vals):
     
     query = "BEGIN TRAN \
-        UPDATE snag_dialpad_calls_callcenter WITH (serializable) set [idSalesDetail]=?,[idSale]=?,[idCustomer]=?\
+        UPDATE [ProyectoBIIV3].[dbo].[factSales]  WITH (serializable) set [idSalesDetail]=?,[idSale]=?,[idCustomer]=?\
             ,[idEmployee]=?,[idDate]=?,[idTerritory]=?,[idLocation]=?,[idProduct]=?,[orderQuantity]=?,[unitPrice]=?\
         WHERE [idSalesDetail]=? \
         IF @@rowcount = 0 \
         BEGIN \
-            INSERT INTO snag_dialpad_calls_callcenter ([idSalesDetail],[idSale],[idCustomer]\
+            INSERT INTO [ProyectoBIIV3].[dbo].[factSales] ([idSalesDetail],[idSale],[idCustomer]\
                 ,[idEmployee],[idDate],[idTerritory],[idLocation]\
                 ,[idProduct],[orderQuantity],[unitPrice]\
             )  \
