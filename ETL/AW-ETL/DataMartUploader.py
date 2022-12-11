@@ -124,12 +124,8 @@ lowlevelTables = {"dimProductCategory":selectProductCategory
 
 #############################################################################
 #Dictionary value Searcher Function
-def search(values, searchFor):
-    for k in values:
-        for v in values[k]:
-            if searchFor in v:
-                return k
-    return None
+def search(dictionary, searchString):
+    return [key for key,val in dictionary.items() if any(searchString in s for s in val)]
 
 ####### FUNCTION TO UPLOAD FACT SALES IN DB TABLE
 def insert_FactSales(db,vals):
@@ -183,7 +179,7 @@ try:
                 pkAlias = list(advWorksTableAliases.keys())[list(advWorksTableAliases.values()).index("["+advWorkstablePK+"]")]
             except ValueError as v:
                 print(v)
-                print("Searching for matching values that contains the string")
+                print("Searching for matching values that contains the string in the dictionary")
                 matchingVal = search(advWorksTableAliases,"["+advWorkstablePK+"]")
                 pkAlias = list(advWorksTableAliases.keys())[list(advWorksTableAliases.values()).index(matchingVal)]
                 continue
