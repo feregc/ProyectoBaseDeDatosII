@@ -4,26 +4,13 @@
 ##########################################################################################################
 #Library list
 
-from glob import glob
-
-from datetime import datetime,timedelta
-import dateutil.parser
 import pyodbc
 import pandas as pd
 import numpy as np
-import unicodedata
-import requests
 import os
-import shutil
-import datetime as dt
-import time
-import re
-import json
-import sys
 
 import sql_metadata
 from SQL.sqlTables2 import SQLTables
-import pathlib
 from pathlib import Path
 
 import importlib.util
@@ -110,22 +97,23 @@ selectSales = """
   FROM [AdventureWorks2016].[Sales].[SalesOrderHeader] as soh
   LEFT JOIN [Sales].[SalesOrderDetail] as sod on sod.SalesOrderID = soh.SalesOrderID
 """
-
+#######################################################################################################
 lowlevelTables = {"dimProductCategory":selectProductCategory
-                # ,"dimProductSubCategory":selectProductSubCategory
-                # ,"dimProducts":selectProducts
-                # ,"dimCountryRegion":selectCountryRegion
-                # ,"dimTerritory":selectTerritory
-                # ,"dimStateProvince":selectStateProvince
-                # ,"dimLocations":selectLocation
-                # ,"dimCustomers":selectCustomer
+                ,"dimProductSubCategory":selectProductSubCategory
+                ,"dimProducts":selectProducts
+                ,"dimCountryRegion":selectCountryRegion
+                ,"dimTerritory":selectTerritory
+                ,"dimStateProvince":selectStateProvince
+                ,"dimLocations":selectLocation
+                ,"dimCustomers":selectCustomer
+                ,"dimEmployees":selectSalesPerson
                 ,"dimStores":selectStore
-                ,"dimEmployees":selectSalesPerson}
+                }
 
 #############################################################################
 #Dictionary value Searcher Function
 def search(dictionary, searchString):
-    return [key for key,val in dictionary.items() if any(searchString in s for s in val)]
+    return [key for key,val in dictionary.items() if searchString in val]
 
 ####### FUNCTION TO UPLOAD FACT SALES IN DB TABLE
 def insert_FactSales(db,vals):
@@ -180,9 +168,10 @@ try:
             except ValueError as v:
                 print(v)
                 print("Searching for matching values that contains the string in the dictionary")
-                matchingVal = search(advWorksTableAliases,"["+advWorkstablePK+"]")
-                pkAlias = list(advWorksTableAliases.keys())[list(advWorksTableAliases.values()).index(matchingVal)]
-                continue
+                matchingVal = search(advWorksTableAliases,"["+advWorkstablePK+"]")[0]
+                pkAlias = matchingVal
+                print("PK Key Found!!")
+                pass
 
             pkList = tableData[pkAlias].tolist()
             pkDF = pd.DataFrame(pkList,columns=[pkAlias])
@@ -202,10 +191,14 @@ try:
     ####* Parsing Facts Table
     try:
         print("Uploading Data!")
-        data = pd.read_sql_query(selectSales,sqlcon)
-        data = data.replace({np.nan:None})
+        tableSalesData = pd.read_sql_query(selectSales,sqlcon)
+        tableSalesData = tableSalesData.replace({np.nan:None})
 
-        valsFactSales = list(data.itertuples(index=False, name=None))
+        pkList = tableSalesData['idSalesDetail'].tolist()
+        pkDF = pd.DataFrame(pkList,columns=['idSalesDetail'])
+        dataSales = pd.concat([tableSalesData.reset_index(drop=True),pkDF.reset_index(drop=True),tableSalesData.reset_index(drop=True)],axis=1)
+
+        valsFactSales = list(dataSales.itertuples(index=False, name=None))
         if not valsFactSales:
             print("passing by...")
         else:
@@ -215,7 +208,7 @@ try:
         print(e)
         pass
 
-    print("Finished Snag Calls Script succesfully!!!")
+    print("Finished ETL Adventure Works Script succesfully!!!")
 except Exception as e:
     print(e)
 
