@@ -88,6 +88,7 @@ CREATE TABLE dimProductSubCategory(
 	CONSTRAINT PK_ProductSubCategory PRIMARY KEY (idProductSubCategory),
 	CONSTRAINT FK_ProductSubCategory_ProductCategory FOREIGN KEY (idProductCategory) REFERENCES dimProductCategory(idProductCategory)
 );
+GO
 
 CREATE TABLE dimProducts(
 	idProduct INTEGER NOT NULL,
@@ -100,68 +101,24 @@ CREATE TABLE dimProducts(
 );
 GO
 
-DECLARE @StartDate  date = '20150101';
+CREATE TABLE dimDate(
+	TheDate DATE NOT NULL,
+	TheDay INTEGER NOT NULL,
+	TheDaySuffix NCHAR(2) NOT NULL,
+	TheDayName NVARCHAR(30) NOT NULL,
+	TheDayOfWeek INTEGER NOT NULL,
+	TheWeek INTEGER NOT NULL,
+	TheISOweek INTEGER NOT NULL,
+	TheMonthName NVARCHAR(30) NOT NULL,
+	TheQuarter INTEGER NOT NULL,
+	TheFirstOfQuarter DATE NOT NULL,
+	TheLastOfQuarter DATE NOT NULL,
+	TheYear INTEGER NOT NULL,
+	Style120 NCHAR(10) NOT NULL,
+	CONSTRAINT PK_Date PRIMARY KEY (TheDate)
+);
+GO
 
-DECLARE @CutoffDate date = DATEADD(DAY, -1, DATEADD(YEAR, 20, @StartDate));
-
-;WITH seq(n) AS 
-(
-  SELECT 0 UNION ALL SELECT n + 1 FROM seq
-  WHERE n < DATEDIFF(DAY, @StartDate, @CutoffDate)
-),
-d(d) AS 
-(
-  SELECT DATEADD(DAY, n, @StartDate) FROM seq
-),
-src AS
-(
-  SELECT
-    TheDate         = CONVERT(date, d),
-    TheDay          = DATEPART(DAY,       d),
-    TheDayName      = DATENAME(WEEKDAY,   d),
-    TheWeek         = DATEPART(WEEK,      d),
-    TheISOWeek      = DATEPART(ISO_WEEK,  d),
-    TheDayOfWeek    = DATEPART(WEEKDAY,   d),
-    TheMonth        = DATEPART(MONTH,     d),
-    TheMonthName    = DATENAME(MONTH,     d),
-    TheQuarter      = DATEPART(Quarter,   d),
-    TheYear         = DATEPART(YEAR,      d),
-    TheFirstOfMonth = DATEFROMPARTS(YEAR(d), MONTH(d), 1),
-    TheLastOfYear   = DATEFROMPARTS(YEAR(d), 12, 31),
-    TheDayOfYear    = DATEPART(DAYOFYEAR, d)
-  FROM d
-),
-dim AS
-(
-  SELECT
-    TheDate, 
-    TheDay,
-    TheDaySuffix        = CONVERT(char(2), CASE WHEN TheDay / 10 = 1 THEN 'th' ELSE 
-                            CASE RIGHT(TheDay, 1) WHEN '1' THEN 'st' WHEN '2' THEN 'nd' 
-                            WHEN '3' THEN 'rd' ELSE 'th' END END),
-    TheDayName,
-    TheDayOfWeek,
-   
-    TheWeek,
-    TheISOweek,
-   
-    TheMonthName,
-   
-    TheQuarter,
-    TheFirstOfQuarter   = MIN(TheDate) OVER (PARTITION BY TheYear, TheQuarter),
-    TheLastOfQuarter    = MAX(TheDate) OVER (PARTITION BY TheYear, TheQuarter),
-    TheYear,
-   
-    Style120            = CONVERT(char(10), TheDate, 120)
-  FROM src
-)
-
-SELECT * INTO dbo.dimDate FROM dim
-  ORDER BY TheDate
-  OPTION (MAXRECURSION 0);
-ALTER TABLE dimDate 
-ALTER COLUMN TheDate DATE NOT NULL;
-CREATE UNIQUE CLUSTERED INDEX PK_DateDimension ON dbo.dimDate(TheDate);
 
 CREATE TABLE dimSalesTaxes(
 	idSales INTEGER NOT NULL,
