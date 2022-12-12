@@ -2,13 +2,11 @@
 #Library list
 import os
 import pyodbc
-import time
 import pathlib
 from pathlib import Path
 import importlib
 import importlib.util
-import pandas as pd
-import numpy as np
+
 
 #################################################################################################################################
 # importing log to database class from the determined location
@@ -48,7 +46,7 @@ class SQLTables():
         return pk    
 
     def tableInserterMany(self,connection,table,listColumns,listValues):
-        print('Running table inserter function')
+        print('Running table inserter function:',table)
         
         cursorPK = connection.cursor()
         cursorPK.execute(queryPK.format(table))
@@ -133,60 +131,6 @@ class SQLTables():
             cursor = connection.cursor()
             cursor.execute(sql)
             connection.commit()
-
-    def tableChecker(self,connection,table,column,field):
-        
-        if os.name == 'nt':
-
-            sql=f"begin tran \
-                BEGIN IF NOT EXISTS(SELECT * FROM {table} WHERE {column} = ?)\
-                    BEGIN INSERT INTO {table} ({column}) values (?)\
-                    END\
-                END\
-                commit tran"
-            vals = (field,field)
-            cursor = connection.cursor()
-            cursor.execute(sql,vals)
-            connection.commit()
-        elif os.name == 'posix':
-        
-            sql="begin tran \
-                    BEGIN IF NOT EXISTS(SELECT * FROM {} WHERE {} = '{}')\
-                        BEGIN INSERT INTO {} ({}) values ('{}')\
-                        END\
-                    END\
-                    commit tran".format(table,column,field,table,column,field)
-            cursor = connection.cursor()
-            cursor.execute(sql)
-            connection.commit()
-
-    def tableChecker2(self,connection,table,column,field):
-        
-        if os.name == 'nt':
-
-            sql=f"begin tran\
-                    BEGIN IF NOT EXISTS(SELECT * FROM {table} WHERE {column} = ?)\
-                            Select '0'\
-                        Else\
-                            Select '1'\
-                    END\
-                    commit tran"
-            vals = (field)
-            cursor = connection.cursor()
-            cursor.execute(sql,vals)
-            return cursor.fetchAll()[0][0]
-        elif os.name == 'posix':
-        
-            sql="begin tran\
-                BEGIN IF NOT EXISTS(SELECT * FROM {} WHERE {} = '{}')\
-                        Select '0'\
-                    Else\
-                        Select '1'\
-                END\
-                commit tran".format(table,column,field)
-            cursor = connection.cursor()
-            cursor.execute(sql)
-            return cursor.fetchAll()[0][0]
 
     def tableSearch(self,field,table):
         for record in table:

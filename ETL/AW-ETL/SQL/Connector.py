@@ -1,8 +1,3 @@
-
-import unicodedata
-import requests
-import json
-import base64
 import pyodbc
 import os
 
@@ -15,6 +10,7 @@ class connection:
     elif os.name == 'posix':
         opsys = 'Linux'
 
+    #Connecting Queries usingg ODBC Driver 17; update connection strings accoring to your server and drivers
     if opsys == 'Windows':
         connectionStringW = "Driver={ODBC Driver 17 for SQL Server};" + "Server=10.0.5.95\MSSQLSERVER2016; Database={}; uid=proyecto_admin; pwd=admin123; autocommit=true".format(account)
         sqlcon = pyodbc.connect(connectionStringW)
