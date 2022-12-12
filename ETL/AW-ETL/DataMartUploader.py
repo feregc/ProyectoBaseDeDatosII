@@ -113,15 +113,15 @@ selectSales = """
 """
 #######################################################################################################
 lowlevelTables = {"dimProductCategory":selectProductCategory
-                # ,"dimProductSubCategory":selectProductSubCategory
-                # ,"dimProducts":selectProducts
-                # ,"dimCountryRegion":selectCountryRegion
-                # ,"dimTerritory":selectTerritory
-                # ,"dimStateProvince":selectStateProvince
-                # ,"dimLocations":selectLocation
-                # ,"dimCustomers":selectCustomer
-                # ,"dimEmployees":selectSalesPerson
-                # ,"dimStores":selectStore
+                ,"dimProductSubCategory":selectProductSubCategory
+                ,"dimProducts":selectProducts
+                ,"dimCountryRegion":selectCountryRegion
+                ,"dimTerritory":selectTerritory
+                ,"dimStateProvince":selectStateProvince
+                ,"dimLocations":selectLocation
+                ,"dimCustomers":selectCustomer
+                ,"dimEmployees":selectSalesPerson
+                ,"dimStores":selectStore
                 ,"dimSalesTax":selectSalesTaxes
                 }
 
