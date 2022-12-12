@@ -4,16 +4,24 @@
 ##########################################################################################################
 #Library list
 
+#Module for ODBC Connection to MSSQLServer 2016
 import pyodbc
+
+#data Handling Modules Pandas and Numpy.
 import pandas as pd
 import numpy as np
+
+#General Modules for System handles and Custom Classes Loads
 import os
-
-import sql_metadata
-from SQL.sqlTables2 import SQLTables
 from pathlib import Path
-
 import importlib.util
+
+#SQL Comprehension module for SQLQueries
+import sql_metadata
+
+#Custom Built Class for SQL Data Upserts and Other Processes
+from SQL.sqlTables2 import SQLTables
+
 #############################################################################################################
 drive = Path(__file__).drive
 
@@ -24,10 +32,9 @@ Connector = importlib.util.module_from_spec(ConnectorSpecs)
 ConnectorSpecs.loader.exec_module(Connector)
 #############################################################################################################
 #MSSQL DATABASE CONNECTOR
-#SELECT Table 
+#
 sqlcon = Connector.connection.sqlConnection('AdventureWorks2016')
 sqlcon2 = Connector.connection.sqlConnection('ProyectoBIIV3')
-
 
 
 selectProductSubCategory = "SELECT [ProductSubcategoryID] as idProductSubCategory,[ProductCategoryID] as idProductCategory,[Name] FROM [AdventureWorks2016].[Production].[ProductSubcategory]"
@@ -54,7 +61,6 @@ selectCustomer = """
   FROM [AdventureWorks2016].[Sales].[Customer] as c
   LEFT JOIN Person.Person as pp on pp.BusinessEntityID = c.PersonID
   LEFT JOIN Person.BusinessEntityAddress as bea on pp.BusinessEntityID = bea.BusinessEntityID
-    WHERE AddressID is not null
 """
 
 selectStore = """
@@ -81,6 +87,14 @@ selectSalesPerson = """
   LEFT JOIN Person.Person as pp on pp.BusinessEntityID = sp.BusinessEntityID
 """
 
+selectSalesTaxes = """
+     SELECT	
+        [SalesOrderID] as idSale
+        ,[TaxAmt] as taxAmount
+        ,[Freight] as freight
+  FROM [AdventureWorks2016].[Sales].[SalesOrderHeader]
+"""
+
 selectSales = """
     SELECT	
         sod.SalesOrderDetailID as idSalesDetail
@@ -99,15 +113,16 @@ selectSales = """
 """
 #######################################################################################################
 lowlevelTables = {"dimProductCategory":selectProductCategory
-                ,"dimProductSubCategory":selectProductSubCategory
-                ,"dimProducts":selectProducts
-                ,"dimCountryRegion":selectCountryRegion
-                ,"dimTerritory":selectTerritory
-                ,"dimStateProvince":selectStateProvince
-                ,"dimLocations":selectLocation
-                ,"dimCustomers":selectCustomer
-                ,"dimEmployees":selectSalesPerson
-                ,"dimStores":selectStore
+                # ,"dimProductSubCategory":selectProductSubCategory
+                # ,"dimProducts":selectProducts
+                # ,"dimCountryRegion":selectCountryRegion
+                # ,"dimTerritory":selectTerritory
+                # ,"dimStateProvince":selectStateProvince
+                # ,"dimLocations":selectLocation
+                # ,"dimCustomers":selectCustomer
+                # ,"dimEmployees":selectSalesPerson
+                # ,"dimStores":selectStore
+                ,"dimSalesTax":selectSalesTaxes
                 }
 
 #############################################################################
