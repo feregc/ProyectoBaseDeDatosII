@@ -147,6 +147,7 @@ dim AS
     TheISOweek,
    
     TheMonthName,
+	TheMonth,
    
     TheQuarter,
     TheFirstOfQuarter   = MIN(TheDate) OVER (PARTITION BY TheYear, TheQuarter),
