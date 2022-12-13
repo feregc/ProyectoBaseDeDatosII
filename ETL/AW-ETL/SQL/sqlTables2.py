@@ -45,6 +45,7 @@ class SQLTables():
 
         return pk    
 
+    #Dynamic Table UPSERT function that receives the table name, columns and values
     def tableInserterMany(self,connection,table,listColumns,listValues):
         print('Running table inserter function:',table)
         
