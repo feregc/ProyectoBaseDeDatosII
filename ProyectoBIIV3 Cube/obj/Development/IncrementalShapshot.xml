@@ -1,0 +1,110 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>ProyectoBIIV3 Cube</Database>
+    <Server>10.0.5.95\MSSQLSERVER2016</Server>
+    <ConnectionString>Data Source=10.0.5.95\MSSQLSERVER2016;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>4OFkaSytuMMtkKtwPYLsJaI/8bA=12/13/2022 8:17:09 AM12/11/2022 1:03:55 PM</TimeStamp>
+        <ID>
+          <String>Proyecto BIIV3</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>hrA3xb9yFq4i+EqdiL7xRLHK97A=12/13/2022 9:26:20 PM12/12/2022 1:34:07 AM</TimeStamp>
+        <ID>
+          <String>Proyecto BIIV3</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>DZj+w2m1hTCMAAssKeXSV445Th8=12/13/2022 12:30:53 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Product Sub Category</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>IklzgtSDRNVBt+GLiqUKCNduZfY=12/13/2022 12:37:11 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Products</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>DoLGEEQT5ge6NJ2sXO1c8rQjpYo=12/13/2022 12:37:11 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Customers</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>D1PhQtNGGTw8WlDtA88KqJgdWMU=12/13/2022 12:37:11 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Employees</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ZWf9Tylz78AJp7rgkTlMa7SsOVg=12/13/2022 12:37:11 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Date</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>fiQp3HVn3+cn1bjGg9I7q0R0kxI=12/13/2022 12:40:16 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Territory</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>7+ulEThoqy5SrkfaKou8IMyvZwY=12/13/2022 9:26:20 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Locations</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>H1jBXOaIfITw/SchiaPtxif0R48=12/13/2022 12:29:36 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Dim Sales Tax</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>aPjw/N6tGMaNkVZTsvZdiGg7w9g=12/13/2022 9:26:20 PM12/13/2022 12:29:36 PMMNdFW5smOMBIG49KNUW1NBWd+IQ=12/13/2022 9:26:20 PM12/13/2022 12:29:36 PM</TimeStamp>
+        <ID>
+          <String>Proyecto BIIV3</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>x2JkLqG+YaZ1Ewn3hne3eKpaSOA=12/11/2022 1:02:03 PM12/11/2022 1:02:02 PM</TimeStamp>
+      <ID>
+        <String>ProyectoBIIV3 Cube</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2022-12-14T03:26:40.06Z</LastDeployed>
+</DeploymentSnapshot>

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "ProyectoBIIV3 Cube", "ProyectoBIIV3 Cube.dwproj", "{952E9203-CFD5-441C-8AD6-562D30C3E962}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{952E9203-CFD5-441C-8AD6-562D30C3E962}.Development|Default.ActiveCfg = Development
+		{952E9203-CFD5-441C-8AD6-562D30C3E962}.Development|Default.Build.0 = Development
+		{952E9203-CFD5-441C-8AD6-562D30C3E962}.Development|Default.Deploy.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16128756-B734-4547-9F93-F8A04764069D}
+	EndGlobalSection
+EndGlobal
